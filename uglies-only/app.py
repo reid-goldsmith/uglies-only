@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from flask import request, redirect
+from flask import request, redirect, url_for
 import os
 import cv2
 
@@ -20,8 +20,9 @@ def upload_image():
             print(image)
             filename = image.filename
             image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(request.url)
 
+            return redirect(url_for("results"))
+           
            
             #return redirect(url_for('uploaded_file',filename=filename))
 
