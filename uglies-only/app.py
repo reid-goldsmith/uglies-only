@@ -34,8 +34,11 @@ def results():
     images = os.listdir()
     image = images[1]
     print(image)
-    facial_recognition(image)
-    return render_template("index.html")
+    try:
+        facial_recognition(image)
+        return render_template("good_results.html")
+    except:
+        return render_template("bad_results.html")
 
 
 def facial_recognition(img):
@@ -53,5 +56,5 @@ def facial_recognition(img):
 
 #gray = cv2.resize(gray, (0,0), fx=0.5, fy=0.5)
 
-    cv2.imwrite("/Users/20goldsmithr/uglies-only/uglies-only/uploads/faces.jpg", image)
+    cv2.imwrite("/Users/20goldsmithr/uglies-only/uglies-only/static/faces.jpg", image)
     cv2.destroyAllWindows()
