@@ -27,14 +27,19 @@ def upload_image():
 
     return render_template("index.html")
 
-@app.route('/results',methods=['POST'])
+@app.route('/results',methods=["GET",'POST'])
 def results():
-    return "faces.jpg"
+    os.chdir("/Users/20goldsmithr/uglies-only/uglies-only/uploads")
+    images = os.listdir()
+    image = images[1]
+    print(image)
+    facial_recognition(image)
+    return render_template("index.html")
 
 
 def facial_recognition(img):
     image = cv2.imread(img)
-    path = "haarcascade_frontalface_default.xml"
+    path = "/Users/20goldsmithr/uglies-only/uglies-only/haarcascade_frontalface_default.xml"
     face_cascade = cv2.CascadeClassifier(path)
 
     gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
@@ -47,4 +52,5 @@ def facial_recognition(img):
 
 #gray = cv2.resize(gray, (0,0), fx=0.5, fy=0.5)
 
-    cv2.imwrite("faces.jpg", image)
+    cv2.imwrite("/Users/20goldsmithr/uglies-only/uglies-only/uploads/faces.jpg", image)
+    cv2.destroyAllWindows()
