@@ -1,9 +1,12 @@
 from flask import Flask
 from flask import render_template
 from flask import request, redirect
+import os
 import cv2
 
 app = Flask(__name__)
+UPLOAD_FOLDER = '/Users/20goldsmithr/uglies-only/uglies-only/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
@@ -11,11 +14,16 @@ def index():
 
 @app.route("/upload-image", methods=["GET","POST"])
 def upload_image():
+    if request.method == 'POST':
+        if request.files:
+            image = request.files["image"]
+            print(image)
+            filename = image.filename
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(request.url)
 
-    if request.files:
-        image = request.files["image"]
-        print(image)
-        return redirect(request.url)
+           
+            #return redirect(url_for('uploaded_file',filename=filename))
 
     return render_template("index.html")
 
