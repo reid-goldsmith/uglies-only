@@ -3,9 +3,26 @@
 <head>
     <meta charset="utf-8">
     <title>Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
-    <h1>You aren't ugly enough :(!</h1>
-    <img src="{{url_for('static', filename='faces.jpg')}}", height="300px">
+    <div class="title-container">
+        <span class="title">Uglies-Only</span> <!--need to add a hyperlink to take user back home to try again-->
+    </div>
+    <div class="rejection-container">
+        <p class="rejection">
+            Oop! Looks like you are not ugly enough!
+        </p>
+    </div>
+    <div class="caption-container">
+        <p class="caption">
+            Feel free to download your picture and share!
+        </p>
+    </div>
+    <img class="results" src="{{url_for('static', filename='faces.jpg')}}", width="400px">
+    <div class="ugly-duckling-container">
+        <img class="ugly-duckling" src="{{ url_for('static', filename='images/ugly-duckling.png') }}">
+    </div>
 </body>
 </html>
