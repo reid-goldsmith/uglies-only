@@ -4,6 +4,7 @@ from flask import request, redirect, url_for
 import os
 import cv2
 #reid is super cool
+#af;lkdskfj
 app = Flask(__name__)
 UPLOAD_FOLDER = '/Users/20goldsmithr/uglies-only/uglies-only/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
