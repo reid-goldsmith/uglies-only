@@ -59,6 +59,49 @@ body {
     font-size: 35px;
 }
 
+.rejection-container {
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.rejection {
+    background-color: #308ae6;
+    color: white;
+    font-family: monospace;
+    font-size: 35px;
+}
+
+.results {
+    margin: 0;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.caption-container {
+    /*figure out how to position beneath the image no matter the height*/
+    margin: 0;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.caption {
+    background-color: #308ae6;
+    color: white;
+    font-family: monospace;
+    font-size: 20px;
+}
+
 .upload {
     position: absolute;
     top: 50%;
@@ -130,4 +173,8 @@ body {
 .button:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+.ugly-duckling {
+    z-index: 1;
 }
