@@ -5,12 +5,129 @@
     }
 
 body {
-    background-color: pink;
+    background-color: #FF69B4;
+}
+
+.title-container {
+    margin: 0;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    
 }
 
 .title {
-    background-color: white;
-    color: blue;
+    background-color: #308ae6;
+    color: white;
     font-family: monospace;
-    font-size: 30px;
+    font-size: 65px;
+}
+
+.explanation-container {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+}
+
+.explanation {
+    background-color: #308ae6;
+    color: white;
+    font-family: monospace;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.smaller-title-container {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.smaller-title {
+    background-color: #308ae6;
+    color: white;
+    font-family: monospace;
+    font-size: 35px;
+}
+
+.upload {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.custom-file-input {
+    display: none;
+}
+
+.custom-file-label {
+    background-color: #308ae6;
+    border: none;
+    color: white;
+    font-family: monospace;
+    line-height: 60px;
+    width: 170px;
+    height: 60px;
+    position: absolute;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 4px;
+    transform: translate(-115%, -50%);
+    text-align: center;
+
+}
+
+.button {
+    font-family: monospace;
+    width: 170px;
+    height: 60px;
+    position: absolute;
+    z-index: 20;
+    background-color: #308ae6;
+    border: none;
+    color: white;
+    transition: all 0.5s;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 4px;
+    position: absolute;
+    transform: translate(15%, -50%)
+}
+
+
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
 }

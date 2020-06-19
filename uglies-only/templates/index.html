@@ -4,16 +4,31 @@
     <meta charset="utf-8">
     <title>Uglies-Only</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
-    <h1 class="title">Uglies-Only</h1>
-    <h1>See if you qualify, upload a picture of yourself!</h1>
-    <form action="/upload-image" method="POST" enctype="multipart/form-data">
-        <div class="face-upload">
-            <input type="file" class="custom-file-input" name="image" id="image">
-            <label class="custom-file-label" for="image">Select image...</label>
-        </div>
-        <button type="submit" class="face-submit-button">Upload</button>
-    </form>
+    <div class="title-container">
+        <span class="title">Uglies-Only</span>
+    </div>
+    <div class="explanation-container">
+        <p class="explanation">Do you feel left out of other dating apps like Tinder or Bumble? Dating has become so visual these days, with left and right swipes. What if there was a dating website where looks didn't really matter? What if you don't really care about looks? This is a platform for likeminded people.</p>
+    </div>
+    <div class="smaller-title-container">
+        <p class="smaller-title">
+            See if you qualify, upload a picture of yourself!
+        </p>
+    </div>
+    <div class="upload">
+        <form action="/upload-image" method="POST" enctype="multipart/form-data">
+            <div class="face-upload">
+                <input type="file" class="custom-file-input" name="image" id="image">
+                <label class="custom-file-label" for="image">Select Image</label>
+            </div>
+            <button type="submit" class="face-submit-button button"><span>Upload</span></button>
+        </form>
+    </div>
+    <div class="ugly-duckling-container">
+        <img class="ugly-duckling" src="{{ url_for('static', filename='images/uglyDuckling.png') }}">
+    </div>
 </body>
 </html>
