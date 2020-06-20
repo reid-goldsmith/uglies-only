@@ -6,6 +6,8 @@ import cv2
 #reid is super cool
 app = Flask(__name__)
 UPLOAD_FOLDER = '/Users/20goldsmithr/uglies-only/uglies-only/uploads'
+#UPLOAD_FOLDER = 'uploads'
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
@@ -31,12 +33,16 @@ def upload_image():
 @app.route('/results',methods=["GET",'POST'])
 def results():
     os.chdir("/Users/20goldsmithr/uglies-only/uglies-only/uploads")
+    print(os.getcwd())##
+    #os.chdir("uploads")
+    print(os.getcwd())##
+
     images = os.listdir()
     image = images[1]
     print(image)
     try:
         facial_recognition(image)
-        return render_template("good_results.html")
+        return render_template("good_results.html",path=image)
     except:
         return render_template("bad_results.html")
 
@@ -44,6 +50,8 @@ def results():
 def facial_recognition(img):
     image = cv2.imread(img)
     path = "/Users/20goldsmithr/uglies-only/uglies-only/haarcascade_frontalface_default.xml"
+    #path = "haarcascade_frontalface_default.xml"
+
     face_cascade = cv2.CascadeClassifier(path)
 
     gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
