@@ -27,6 +27,14 @@
             <button type="submit" class="face-submit-button button"><span>Upload</span></button>
         </form>
     </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <div class="ugly-duckling-container">
         <img class="ugly-duckling" src="{{ url_for('static', filename='images/ugly-duckling.png') }}">
     </div>

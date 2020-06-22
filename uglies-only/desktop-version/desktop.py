@@ -28,7 +28,10 @@ label = ttk.Label(root, text="uglies only")
 label.pack()
 def func1():
     filename =  filedialog.askopenfilename(initialdir = "/",title = "Select file")#,filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-    facial_recognition(filename)
+    try:
+        facial_recognition(filename)
+    except:
+        print("wrong file format")
 
 '''
 def func2():

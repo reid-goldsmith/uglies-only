@@ -1,12 +1,20 @@
 from flask import Flask
 from flask import render_template
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, flash
 import os
 import cv2
 #reid is super cool
+
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 app = Flask(__name__)
 UPLOAD_FOLDER = '/Users/20goldsmithr/uglies-only/uglies-only/uploads'
 #UPLOAD_FOLDER = 'uploads'
+app.secret_key = "dafadfaad"
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -21,9 +29,13 @@ def upload_image():
             image = request.files["image"]
             print(image)
             filename = image.filename
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            if image and allowed_file(filename):
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            return redirect(url_for("results"))
+                return redirect(url_for("results"))
+            else:
+                flash("Unsupported file type", 'error')
+                return render_template("index.html")
            
            
             #return redirect(url_for('uploaded_file',filename=filename))
@@ -66,3 +78,8 @@ def facial_recognition(img):
 
     cv2.imwrite("/Users/20goldsmithr/uglies-only/uglies-only/static/faces.jpg", image)
     cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+     
