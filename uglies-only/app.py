@@ -12,7 +12,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/Users/20goldsmithr/uglies-only/uglies-only/uploads'
+UPLOAD_FOLDER = '/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/uploads'
 #UPLOAD_FOLDER = 'uploads'
 app.secret_key = "dafadfaad"
 
@@ -44,7 +44,7 @@ def upload_image():
 
 @app.route('/results',methods=["GET",'POST'])
 def results():
-    os.chdir("/Users/20goldsmithr/uglies-only/uglies-only/uploads")
+    os.chdir("/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/uploads")
     print(os.getcwd())##
     #os.chdir("uploads")
     print(os.getcwd())##
@@ -61,7 +61,7 @@ def results():
 
 def facial_recognition(img):
     image = cv2.imread(img)
-    path = "/Users/20goldsmithr/uglies-only/uglies-only/haarcascade_frontalface_default.xml"
+    path = "/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/haarcascade_frontalface_default.xml"
     #path = "haarcascade_frontalface_default.xml"
 
     face_cascade = cv2.CascadeClassifier(path)
@@ -76,7 +76,7 @@ def facial_recognition(img):
 
 #gray = cv2.resize(gray, (0,0), fx=0.5, fy=0.5)
 
-    cv2.imwrite("/Users/20goldsmithr/uglies-only/uglies-only/static/faces.jpg", image)
+    cv2.imwrite("/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/static/faces.jpg", image)
     cv2.destroyAllWindows()
 
 
