@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from mtcnn.mtcnn import MTCNN
 from flask import request, redirect, url_for, flash, g
 import sqlite3
 import os
@@ -9,6 +10,10 @@ from blob import insertBLOB, convertToBinaryData, readBlobData
 DATABASE = '/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/pics.db'
 
 app = Flask(__name__)
+@app.after_request
+def stopCaching(response):
+    response.headers['Cache-Control'] = 'no-store' #or no-store if that doesnt work
+    return response
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -68,7 +73,7 @@ def upload_image():
                 return redirect(url_for("results"))
             else:
                 flash("Unsupported file type", 'error')
-                return render_template("index.html")
+                return redirect(url_for('index'))#render_template("index.html")
            
             #return redirect(url_for('uploaded_file',filename=filename))
     
@@ -89,13 +94,15 @@ def results():
     with open(filename, 'wb') as f:
         f.write(image)
 
-    try:
+    
         #facial_recognition(image)
-        facial_recognition(filename)
+    if facial_recognition2(filename) == True:
+        facial_recognition2(filename)
         os.remove(filename)
         return render_template("good_results.html")#,path=image)
-    except:
+    else:
         return render_template("bad_results.html")
+
 
 
 def facial_recognition(img):
@@ -118,6 +125,42 @@ def facial_recognition(img):
     cv2.imwrite("/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/static/faces.jpg", image)
     cv2.destroyAllWindows()
 
+
+def facial_recognition2(img):
+    image = cv2.imread(img)
+
+    detector = MTCNN()
+
+    faces = detector.detect_faces(image)
+    for face in faces:
+        print(face)
+    def face(img):
+        image = cv2.imread(image_path)
+        return detector.detect_faces(image)
+    def highlight_faces(img, faces):
+    # display image
+        #image = cv2.imread(image_path)
+        #cv2.imshow("name",image)
+
+        #ax = plt.gca()
+        print(faces)
+        
+    
+        for face in faces:
+            
+            x, y, w, h = face['box']
+            cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
+            cv2.putText(image,"not ugly",(x+50,y+50),cv2.FONT_HERSHEY_PLAIN,1,(0,0,255),2)
+        #cv2.imshow("ye", image)
+        cv2.imwrite("/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/static/faces.jpg", image)
+        cv2.destroyAllWindows()
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+    if len(faces) == 0:
+        return False
+    else:  
+        highlight_faces("/Users/reidgoldsmith/Desktop/IMG_4181 ckpg.jpg", faces)
+        return True
 
 if __name__ == "__main__":
     app.run(debug=True)
