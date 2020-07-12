@@ -12,8 +12,11 @@
     </div>
     <div class="rejection-container">
         <p class="rejection">
-            Oops! looks like you selected a file of the wrong format!
+            Oops! we couldn't find a face, try a better picture!
         </p>
+    </div>
+    <div class="try-again-container">
+        <a href="{{ url_for('templates', filename='index.html') }}" class="try-again">Click here to try again</a>
     </div>
     <div class="ugly-duckling-container">
         <img class="ugly-duckling" src="{{ url_for('static', filename='images/ugly-duckling.png') }}">

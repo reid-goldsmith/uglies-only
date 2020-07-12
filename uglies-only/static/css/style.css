@@ -23,7 +23,7 @@ body {
     background-color: #308ae6;
     color: white;
     font-family: monospace;
-    font-size: 65px;
+    font-size: 63px;
 }
 
 .explanation-container {
@@ -75,6 +75,22 @@ body {
     font-size: 35px;
 }
 
+.try-again-container {
+    margin: 0;
+    position: absolute;
+    top: 29%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.try-again {
+    background-color: #308ae6;
+    color: white;
+    font-family: monospace;
+    font-size: 35px;
+}
+
 .results {
     margin: 0;
     position: absolute;
@@ -83,6 +99,10 @@ body {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     z-index: 10;
+    max-height:750px;
+    max-width:500px;
+    height:auto;
+    width:auto;
 }
 
 .caption-container {
