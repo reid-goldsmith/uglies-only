@@ -15,7 +15,7 @@ body {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 450px;
     
 }
 
@@ -97,10 +97,10 @@ body {
     top: 25%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     z-index: 10;
-    max-height:750px;
-    max-width:500px;
+    max-height:400px;
+    max-width:300px;
     height:auto;
     width:auto;
 }
@@ -109,7 +109,7 @@ body {
     /*figure out how to position beneath the image no matter the height*/
     margin: 0;
     position: absolute;
-    top: 70%;
+    top: 80%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
