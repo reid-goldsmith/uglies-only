@@ -1,17 +1,32 @@
 from flask import Flask
 from flask import render_template
-from flask import request, redirect, url_for, flash
+from flask import request, redirect, url_for, flash, g
+import sqlite3
 import os
 import cv2
+from blob import insertBLOB, convertToBinaryData, readBlobData
 #reid is super cool
+DATABASE = '/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/pics.db'
 
+app = Flask(__name__)
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-app = Flask(__name__)
 UPLOAD_FOLDER = '/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/uploads'
 #UPLOAD_FOLDER = 'uploads'
 app.secret_key = "dafadfaad"
@@ -20,6 +35,22 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
+    cur = get_db().cursor()
+    command = '''
+    CREATE TABLE IF NOT EXISTS `oldpictures` (
+        `id`,
+        `unedited`
+    );'''
+    command2 = '''
+        CREATE TABLE IF NOT EXISTS `newpictures` (
+        `id`,
+        `edited`
+        );
+    '''
+    cur.execute(command)
+    cur.execute(command2)
+    get_db().commit()
+    
     return render_template("index.html")
 
 @app.route("/upload-image", methods=["GET","POST"])
@@ -30,31 +61,39 @@ def upload_image():
             print(image)
             filename = image.filename
             if image and allowed_file(filename):
-                image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
+                insertBLOB(1,image.read())
+                
+                #image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
                 return redirect(url_for("results"))
             else:
                 flash("Unsupported file type", 'error')
                 return render_template("index.html")
            
-           
             #return redirect(url_for('uploaded_file',filename=filename))
-
+    
     return render_template("index.html")
 
 @app.route('/results',methods=["GET",'POST'])
 def results():
-    os.chdir("/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/uploads")
-    print(os.getcwd())##
+   # os.chdir("/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/uploads")
+    #print(os.getcwd())##
     #os.chdir("uploads")
-    print(os.getcwd())##
+    #print(os.getcwd())##
 
-    images = os.listdir()
-    image = images[1]
-    print(image)
+    #images = os.listdir()
+    #image = images[-1]
+    #print(image)
+    filename = "picture123456778.png"
+    image = readBlobData(1)
+    with open(filename, 'wb') as f:
+        f.write(image)
+
     try:
-        facial_recognition(image)
-        return render_template("good_results.html",path=image)
+        #facial_recognition(image)
+        facial_recognition(filename)
+        os.remove(filename)
+        return render_template("good_results.html")#,path=image)
     except:
         return render_template("bad_results.html")
 
@@ -75,7 +114,7 @@ def facial_recognition(img):
 
 
 #gray = cv2.resize(gray, (0,0), fx=0.5, fy=0.5)
-
+    
     cv2.imwrite("/Users/reidgoldsmith/Desktop/Computa/uglies-only/uglies-only/static/faces.jpg", image)
     cv2.destroyAllWindows()
 
